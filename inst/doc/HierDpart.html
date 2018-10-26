@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<meta name="author" content="Xinghu Qin –School of Biology, University of St Andrews" />
+
+<meta name="date" content="2018-10-17" />
+
+<title>A Brief Guide to Use HierDpart Package to Do Landscape Genetic Analysis</title>
+
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+
+
+<link href="data:text/css;charset=utf-8,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23header%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%20code%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">A Brief Guide to Use HierDpart Package to Do Landscape Genetic Analysis</h1>
+<h4 class="author"><em>Xinghu Qin –School of Biology, University of St Andrews</em></h4>
+<h4 class="date"><em>2018-10-17</em></h4>
+
+
+
+<div id="instruction" class="section level1">
+<h1>Instruction</h1>
+<p>This vignette demonstrates how to use the latest version of HierDPart to do landscape genetic analysis. This package is designed for population geneticists and community geneticists to solve the gap between community ecology and population genetics - how to partition diversity across metrics and spatial scales, from genetic diversity to species diversity using an integrated method. The method, known as the unifying framework, has been explained in recent paper (Gaggiotti, O. E. et al, 2018, Evol Appl, 11:1176-1193). This package was developed to implement the hierarchical decomposition analysis using not only the common genetic metrics, such as He, Fst, allelic richness, but also new genetic metrics from the unifying framework.</p>
+<p>Here, this vignette will briefly show how to do analyses using this package.</p>
+</div>
+<div id="practical-analyses" class="section level1">
+<h1>Practical analyses</h1>
+<p>HierDpart can read genepop files both in haploid and diploid which are quite common in genetics.</p>
+<div id="install-hierdpart" class="section level2">
+<h2>Install HierDpart</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#Install from CRAN</span>
+<span class="co">#install.packages(&quot;HierDpart&quot;)</span>
+## or you can install from github
+<span class="co">#library(devtools)</span>
+
+<span class="co">#install_github(&quot;xinghuq/HierDpart&quot;)</span>
+
+<span class="kw">library</span>(<span class="st">&quot;HierDpart&quot;</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># example genepop file</span>
+f &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span class="st">'extdata'</span>,<span class="dt">package=</span><span class="st">'HierDpart'</span>)
+infile &lt;-<span class="st"> </span><span class="kw">file.path</span>(f, <span class="st">&quot;Island.gen&quot;</span>)</code></pre></div>
+</div>
+<div id="function-to-calculate-genetic-diversity-profiles-q012" class="section level2">
+<h2>Function to calculate genetic diversity profiles (q=0,1,2)</h2>
+<p>qD is the function calculating genetic diversity profiles (q=0,1,2), including richness (q=0), exponential Shannon entropy (q=1), and heterozygosity (q=2). If we want to calculate the allelic diversity profiles, we can do the following command line:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qD</span>(infile,<span class="dt">q=</span><span class="dv">0</span>,<span class="dt">ncode=</span><span class="dv">3</span>)
+<span class="co">#&gt;         pop1 pop2 pop3 pop4 pop5 pop6 pop7 pop8 pop9 pop10 pop11 pop12</span>
+<span class="co">#&gt; locus1     2    3    2    3    3    2    2    5    5     4     5     3</span>
+<span class="co">#&gt; locus2     9    9    8    7    7    7    8    4    5     5     6     7</span>
+<span class="co">#&gt; locus3     8    9    8    7    8    8    8    8    9     9     7     6</span>
+<span class="co">#&gt; locus4     8    8    8    7    5    6    7    8   10     9     8     5</span>
+<span class="co">#&gt; locus5     7    7    9    6    7    5   10    6    9     6     7     7</span>
+<span class="co">#&gt; locus6     4    6    5    6    6    3    5    4    6     6     6     5</span>
+<span class="co">#&gt; locus7     6    5    6    6    8    7    4    6    7     4     5     4</span>
+<span class="co">#&gt; locus8     9    8    9    9    9    8    7    8    6     9     7     5</span>
+<span class="co">#&gt; locus9     5    6    8    6    8    6    6    6    6     7     6     5</span>
+<span class="co">#&gt; locus10    9    8    7    7    8    6    6    6    6     8     7     7</span>
+<span class="co">#&gt;         pop13 pop14 pop15 pop16</span>
+<span class="co">#&gt; locus1      3     6     3     4</span>
+<span class="co">#&gt; locus2      6     5     5     5</span>
+<span class="co">#&gt; locus3      6     7     7     7</span>
+<span class="co">#&gt; locus4      6     9     9    10</span>
+<span class="co">#&gt; locus5      7     8     9     8</span>
+<span class="co">#&gt; locus6      4     5     6     5</span>
+<span class="co">#&gt; locus7      4     5     4     5</span>
+<span class="co">#&gt; locus8      5     3     6     4</span>
+<span class="co">#&gt; locus9      4     8     8     6</span>
+<span class="co">#&gt; locus10     6     6     7     8</span></code></pre></div>
+<p>You can choose which diversity to calculate by defining the value of q.</p>
+</div>
+<div id="plot-diversity-profiles" class="section level2">
+<h2>Plot diversity profiles</h2>
+<p>If we want to plot the diversity profiles, we can do:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qDplot</span>(infile,<span class="dt">q=</span><span class="st">&quot;all&quot;</span>,<span class="dt">ncode=</span><span class="dv">3</span>)</code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+</div>
+<div id="hierarchical-diversity-and-differentication-decomposition" class="section level2">
+<h2>Hierarchical diversity and differentication decomposition</h2>
+<p>For geneticists studying landscape genetics, they may want to partition the metapopulation into different subpopulation, thus having several hierarchical groups. Now we are showing how to decompose genetic diversity into different hierarchical levels.</p>
+</div>
+<div id="hierarchical-allelic-richness-q0" class="section level2">
+<h2>Hierarchical allelic richness (q=0)</h2>
+<p>Here it is easy to define or delimit your structure, type ?HierAr will show you how to do that. Here, “nreg” is the number of aggregate ( or population) in your metapopulation, and “r” is the number of subaggregate (or subpopulation) in each aggregate.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">HAr=<span class="kw">HierAr</span>(infile, <span class="dt">nreg=</span><span class="dv">4</span>, <span class="dt">r=</span><span class="kw">c</span>(<span class="dv">7</span>,<span class="dv">4</span>,<span class="dv">2</span>,<span class="dv">3</span>), <span class="dt">ncode=</span><span class="dv">3</span>)
+<span class="kw">print</span>(HAr)
+<span class="co">#&gt; $Ar_pop</span>
+<span class="co">#&gt;         Arpop 1 Arpop 2 Arpop 3 Arpop 4 Arpop 5 Arpop 6 Arpop 7 Arpop 8</span>
+<span class="co">#&gt; locus1        2       3       2       3       3       2       2       5</span>
+<span class="co">#&gt; locus2        9       9       8       7       7       7       8       4</span>
+<span class="co">#&gt; locus3        8       9       8       7       8       8       8       8</span>
+<span class="co">#&gt; locus4        8       8       8       7       5       6       7       8</span>
+<span class="co">#&gt; locus5        7       7       9       6       7       5      10       6</span>
+<span class="co">#&gt; locus6        4       6       5       6       6       3       5       4</span>
+<span class="co">#&gt; locus7        6       5       6       6       8       7       4       6</span>
+<span class="co">#&gt; locus8        9       8       9       9       9       8       7       8</span>
+<span class="co">#&gt; locus9        5       6       8       6       8       6       6       6</span>
+<span class="co">#&gt; locus10       9       8       7       7       8       6       6       6</span>
+<span class="co">#&gt;         Arpop 9 Arpop 10 Arpop 11 Arpop 12 Arpop 13 Arpop 14 Arpop 15</span>
+<span class="co">#&gt; locus1        5        4        5        3        3        6        3</span>
+<span class="co">#&gt; locus2        5        5        6        7        6        5        5</span>
+<span class="co">#&gt; locus3        9        9        7        6        6        7        7</span>
+<span class="co">#&gt; locus4       10        9        8        5        6        9        9</span>
+<span class="co">#&gt; locus5        9        6        7        7        7        8        9</span>
+<span class="co">#&gt; locus6        6        6        6        5        4        5        6</span>
+<span class="co">#&gt; locus7        7        4        5        4        4        5        4</span>
+<span class="co">#&gt; locus8        6        9        7        5        5        3        6</span>
+<span class="co">#&gt; locus9        6        7        6        5        4        8        8</span>
+<span class="co">#&gt; locus10       6        8        7        7        6        6        7</span>
+<span class="co">#&gt;         Arpop 16</span>
+<span class="co">#&gt; locus1         4</span>
+<span class="co">#&gt; locus2         5</span>
+<span class="co">#&gt; locus3         7</span>
+<span class="co">#&gt; locus4        10</span>
+<span class="co">#&gt; locus5         8</span>
+<span class="co">#&gt; locus6         5</span>
+<span class="co">#&gt; locus7         5</span>
+<span class="co">#&gt; locus8         4</span>
+<span class="co">#&gt; locus9         6</span>
+<span class="co">#&gt; locus10        8</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $Ar_reg</span>
+<span class="co">#&gt;   Ar_region 1 Ar_region 2 Ar_region 3 Ar_region 4</span>
+<span class="co">#&gt; 1         9.2         8.7           6         7.3</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $Ar_ovell</span>
+<span class="co">#&gt;       Art Arr    Arp</span>
+<span class="co">#&gt; [1,] 10.9 7.8 6.3375</span></code></pre></div>
+</div>
+<div id="hierarchical-allelic-diversity-q1" class="section level2">
+<h2>Hierarchical allelic diversity (q=1)</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">HiD=<span class="kw">HierD</span>(infile, <span class="dt">nreg=</span><span class="dv">4</span>, <span class="dt">r=</span><span class="kw">c</span>(<span class="dv">7</span>,<span class="dv">4</span>,<span class="dv">2</span>,<span class="dv">3</span>), <span class="dt">ncode=</span><span class="dv">3</span>)
+<span class="kw">print</span>(HiD)
+<span class="co">#&gt;           D_gamma D_alpha.2 D_alpha.1 D_beta.2 D_beta.1 Differentiation.2</span>
+<span class="co">#&gt; Locus 1  3.193142  2.725683  2.547081 1.171501 1.070120         0.1234638</span>
+<span class="co">#&gt; Locus 2  8.127991  5.570462  4.756040 1.459123 1.171240         0.2947130</span>
+<span class="co">#&gt; Locus 3  9.182470  7.039348  5.851804 1.304449 1.202936         0.2073097</span>
+<span class="co">#&gt; Locus 4  8.384311  6.830226  5.819550 1.227531 1.173669         0.1599041</span>
+<span class="co">#&gt; Locus 5  8.815656  6.014476  5.031749 1.465740 1.195305         0.2982420</span>
+<span class="co">#&gt; Locus 6  4.466209  3.846453  3.517153 1.161124 1.093627         0.1165235</span>
+<span class="co">#&gt; Locus 7  6.466375  4.320795  3.849778 1.496570 1.122349         0.3144786</span>
+<span class="co">#&gt; Locus 8  8.193804  5.671722  4.805933 1.444677 1.180150         0.2869518</span>
+<span class="co">#&gt; Locus 9  9.424112  5.279522  4.494791 1.785031 1.174587         0.4519619</span>
+<span class="co">#&gt; Locus 10 8.429114  5.828401  5.117923 1.446214 1.138821         0.2877814</span>
+<span class="co">#&gt;          Differentiation.1</span>
+<span class="co">#&gt; Locus 1         0.04546744</span>
+<span class="co">#&gt; Locus 2         0.10604372</span>
+<span class="co">#&gt; Locus 3         0.12395858</span>
+<span class="co">#&gt; Locus 4         0.10743385</span>
+<span class="co">#&gt; Locus 5         0.11968905</span>
+<span class="co">#&gt; Locus 6         0.06004503</span>
+<span class="co">#&gt; Locus 7         0.07743759</span>
+<span class="co">#&gt; Locus 8         0.11112839</span>
+<span class="co">#&gt; Locus 9         0.10795825</span>
+<span class="co">#&gt; Locus 10        0.08721245</span></code></pre></div>
+<p>The result returns a list of hierarchical metrics, the first five metrics are diversities. It explains in the below section.</p>
+</div>
+<div id="hierarchical-heterozygosity-q2" class="section level2">
+<h2>Hierarchical heterozygosity (q=2)</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">He=<span class="kw">HierHe</span>(infile, <span class="dt">nreg=</span><span class="dv">4</span>, <span class="dt">r=</span><span class="kw">c</span>(<span class="dv">7</span>,<span class="dv">4</span>,<span class="dv">2</span>,<span class="dv">3</span>), <span class="dt">ncode=</span><span class="dv">3</span>)
+<span class="kw">print</span>(He)
+<span class="co">#&gt; $HierHe_perloc</span>
+<span class="co">#&gt;              Ht   Hr 1   Hr 2   Hr 3   Hr 4     Hp</span>
+<span class="co">#&gt; Locus 1  0.5937 0.6587 0.6587 0.6587 0.6587 0.5529</span>
+<span class="co">#&gt; Locus 2  0.8549 0.7518 0.7518 0.7518 0.7518 0.7665</span>
+<span class="co">#&gt; Locus 3  0.8781 0.8342 0.8342 0.8342 0.8342 0.8173</span>
+<span class="co">#&gt; Locus 4  0.8595 0.8702 0.8702 0.8702 0.8702 0.8149</span>
+<span class="co">#&gt; Locus 5  0.8488 0.8541 0.8541 0.8541 0.8541 0.7557</span>
+<span class="co">#&gt; Locus 6  0.7036 0.5559 0.5559 0.5559 0.5559 0.6546</span>
+<span class="co">#&gt; Locus 7  0.8052 0.6892 0.6892 0.6892 0.6892 0.6873</span>
+<span class="co">#&gt; Locus 8  0.8410 0.5448 0.5448 0.5448 0.5448 0.7424</span>
+<span class="co">#&gt; Locus 9  0.8758 0.7589 0.7589 0.7589 0.7589 0.7355</span>
+<span class="co">#&gt; Locus 10 0.8592 0.8200 0.8200 0.8200 0.8200 0.7754</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $HieHr_overall</span>
+<span class="co">#&gt;         Ht      Hr     Hp</span>
+<span class="co">#&gt; [1,] 0.812 0.73165 0.7302</span></code></pre></div>
+</div>
+<div id="hierarchical-fst" class="section level2">
+<h2>Hierarchical Fst</h2>
+<p>Besides the hierarchical diversity, this package also calculates hierarchical differentiation. It has new differentiation (Delta D) here, which corresponds to diversity D (q=1). Now we are showing how to calculate the traditional hierarchical Fst and new hierarchical Delta D.</p>
+<p>For Fst:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Hier_Fst=<span class="kw">HierFst</span>(infile, <span class="dt">nreg=</span><span class="dv">4</span>, <span class="dt">r=</span><span class="kw">c</span>(<span class="dv">7</span>,<span class="dv">4</span>,<span class="dv">2</span>,<span class="dv">3</span>), <span class="dt">ncode=</span><span class="dv">3</span>)
+<span class="kw">print</span>(Hier_Fst)
+<span class="co">#&gt;           region        pop          Ind</span>
+<span class="co">#&gt; Total  0.1077832 0.13154297  0.128481750</span>
+<span class="co">#&gt; region 0.0000000 0.02663001  0.023198983</span>
+<span class="co">#&gt; pop    0.0000000 0.00000000 -0.003524894</span></code></pre></div>
+<p>This gives you the Fst within in higher levels among lower levels. See ?HierFst for details. ## Hierarchical Fst For DeltaD:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Hier_D=<span class="kw">HierD</span>(infile, <span class="dt">nreg=</span><span class="dv">4</span>, <span class="dt">r=</span><span class="kw">c</span>(<span class="dv">7</span>,<span class="dv">4</span>,<span class="dv">2</span>,<span class="dv">3</span>), <span class="dt">ncode=</span><span class="dv">3</span>)
+<span class="kw">print</span>(Hier_D)
+<span class="co">#&gt;           D_gamma D_alpha.2 D_alpha.1 D_beta.2 D_beta.1 Differentiation.2</span>
+<span class="co">#&gt; Locus 1  3.193142  2.725683  2.547081 1.171501 1.070120         0.1234638</span>
+<span class="co">#&gt; Locus 2  8.127991  5.570462  4.756040 1.459123 1.171240         0.2947130</span>
+<span class="co">#&gt; Locus 3  9.182470  7.039348  5.851804 1.304449 1.202936         0.2073097</span>
+<span class="co">#&gt; Locus 4  8.384311  6.830226  5.819550 1.227531 1.173669         0.1599041</span>
+<span class="co">#&gt; Locus 5  8.815656  6.014476  5.031749 1.465740 1.195305         0.2982420</span>
+<span class="co">#&gt; Locus 6  4.466209  3.846453  3.517153 1.161124 1.093627         0.1165235</span>
+<span class="co">#&gt; Locus 7  6.466375  4.320795  3.849778 1.496570 1.122349         0.3144786</span>
+<span class="co">#&gt; Locus 8  8.193804  5.671722  4.805933 1.444677 1.180150         0.2869518</span>
+<span class="co">#&gt; Locus 9  9.424112  5.279522  4.494791 1.785031 1.174587         0.4519619</span>
+<span class="co">#&gt; Locus 10 8.429114  5.828401  5.117923 1.446214 1.138821         0.2877814</span>
+<span class="co">#&gt;          Differentiation.1</span>
+<span class="co">#&gt; Locus 1         0.04546744</span>
+<span class="co">#&gt; Locus 2         0.10604372</span>
+<span class="co">#&gt; Locus 3         0.12395858</span>
+<span class="co">#&gt; Locus 4         0.10743385</span>
+<span class="co">#&gt; Locus 5         0.11968905</span>
+<span class="co">#&gt; Locus 6         0.06004503</span>
+<span class="co">#&gt; Locus 7         0.07743759</span>
+<span class="co">#&gt; Locus 8         0.11112839</span>
+<span class="co">#&gt; Locus 9         0.10795825</span>
+<span class="co">#&gt; Locus 10        0.08721245</span></code></pre></div>
+<p>Here we get alpha, beta, gamma diversity, which correspond to low to high level diversities. Beta.1 is the number of equivalent subaggregate (population or subpopulation depends on the hierarchy), and beta.2 is the number of equivalent aggregate (eg. regions). Differentiation.2 represents genetic differentiation between aggragates, Differentiation.1 represents genetic differentiation between subaggregates.</p>
+<p>Untill now you may know how to implement the hierarchical diversity analyses. Furthermore, this package also includes several functions that can plot correlation between geographic distances and genetic differentiations, (see COR_Fstd, and COR_DeltaDd), as well as Delta D matrix and Delta D across loci.</p>
+</div>
+</div>
+<div id="references" class="section level1">
+<h1>References</h1>
+<blockquote>
+<p>’Gaggiotti, O. E., Chao, A., Peres-Neto, P., Chiu, C. H., Edwards, C., Fortin, M. J., … &amp; Selkoe, K. A. (2018). Diversity from genes to ecosystems: A unifying framework to study variation across biological metrics and scales. Evolutionary Applications.</p>
+</blockquote>
+<blockquote>
+<p>’Weir, B.S. (1996) Genetic Data Analysis II. Sinauer Associates.</p>
+</blockquote>
+<blockquote>
+<p>’Yang, R.C. (1998). Estimating hierarchical F-statistics. Evolution 52 (4):950-956</p>
+</blockquote>
+</div>
+
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
