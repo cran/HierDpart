@@ -1,6 +1,6 @@
 \name{HierHe}
 \alias{HierHe}
-\title{Function to calculate hierarchical heterozygosity}
+\title{Function for calculating hierarchical heterozygosity}
 \description{This function calculates and decomposes hierarchical heterozygosity into different levels. We can obtain allelic diversity (He) in any hierarchy.}
 \usage{HierHe(x, nreg, r, ncode)}
 \arguments{
@@ -9,10 +9,10 @@
   \item{r}{The number of subaggregate in the hierarchy.}
   \item{ncode}{ Coding type of genetic data, whether 3, or 2.}
 }
-\details{In line with other genetic metrics, this function obatains hierarchical expected heterozygosity (He) for metapopulations. The result gives us hierarchical allelic diversity at different levels as you set in the input argument.}
+\details{In line with other genetic metrics, this function obtains hierarchical expected heterozygosity (He) for metapopulations. The result gives us hierarchical allelic diversity at different levels that you set in the input argument.}
 \value{
-  \item{HierHe_perloc}{List of hierarchical allelic diversity (heterozygosity) in different levels per locus.}
-  \item{HieHr_overall}{Overall (mean) hierarchical allelic diversity (heterozygosity) in different levels.}
+  \item{HierHe_perloc}{List of hierarchical allelic diversity (heterozygosity) at different levels per locus.}
+  \item{HieHr_overall}{Overall (mean) hierarchical allelic diversity (heterozygosity) at different levels.}
 }
 \references{
 Goudet, J. (2005). Hierfstat, a package for R to compute and test hierarchical F-statistics. Molecular Ecology Notes, 5(1), 184-186.

@@ -1,17 +1,18 @@
 \name{COR_Fstd}
 \alias{COR_Fstd}
-\title{Function to calculate pairwise Fst and correlation coefficient between Fst (Weir and Cockerham, 1984) and geographic distance}
-\description{This function calculates pairwise genetic differentication (Fst), as well as the correlation        coefficient between genetic differentiation (Fst) and geographic distance.}
-\usage{COR_Fstd(x, d, ncode)}
+\title{Function for calculating pairwise Fst and correlation coefficient between Fst (Weir and Cockerham, 1984) and geographic distance}
+\description{This function calculates pairwise genetic differentiation (Fst), as well as the correlation coefficient between genetic differentiation (Fst) and geographic distance.}
+\usage{COR_Fstd(x, d, ncode,nrepet)}
 \arguments{
   \item{x}{A genetic data files, here the format is genepop format.}
-  \item{d}{Pairwise geographic distance for calculating correlations. If no actual geographic distance, d=FALSE. The geographic distance should be a matrix that corresponds to the pairwise genetic differentiation matrix.}
+  \item{d}{Pairwise geographic distance for calculating correlations. If no actual geographic distance, d=NULL. The geographic distance should be a matrix that corresponds to the pairwise genetic differentiation matrix.}
   \item{ncode}{The code type of the genotype.}
+  \item{nrepet}{Number of permutations.}
 }
-\details{ This function returns lists of pairwise Fst matrix, and a matrix of theorical geographical distance if d is FALSE, as well as their correlation coefficient.}
+\details{ This function returns lists of pairwise Fst matrix, and a matrix of theorical geographical distance if d is NULL, as well as the correlation coefficient.}
 \value{
   \item{pwFst}{The pairwise genetic differentiation (Fst) matrix.}
-  \item{COR_Fstd}{Person correlation coefficient between genetic differentiation (Fst) and geographic distance.}
+  \item{COR_Fstd}{Pearson correlation coefficient between genetic differentiation (Fst) and geographic distance.}
 }
 \references{
 Goudet, J. (2005). Hierfstat, a package for R to compute and test hierarchical F-statistics. Molecular Ecology Notes, 5(1), 184-186.
@@ -29,7 +30,7 @@ Evolution and the Genetics of Populations Volume 2: the Theory of Gene Frequenci
 # example genepop file, the example file is a complicated hierarchical island model
 f <- system.file('extdata',package='HierDpart')
 infile <- file.path(f, "Island.gen")
-#d2=COR_Fstd(infile,d=FALSE,ncode=3)
+#d2=COR_Fstd(infile,d=NULL,ncode=3,nrepet=999)
 #print(d2)
 }
 \keyword{Correlation between genetic differentiation and geographic distance}

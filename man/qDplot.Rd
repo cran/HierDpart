@@ -1,14 +1,14 @@
 \name{qDplot}
 \alias{qDplot}
 \title{Plot the genetic diversity profiles (q=0,1,2)}
-\description{This function calculates the diversity profiles and generates a line plot. You can get either one of the diversity index plot, richness (q=0), exponential Shannon entropy (q=1), and heterozygosity (q=2), or all of them.}
+\description{This function calculates the diversity profiles and generates a line plot. You can get either one of the diversity index plot, richness (q=0), exponential Shannon entropy (q=1), and heterozygosity related measure of diversity (q=2), or all of them.}
 \usage{qDplot(x, q, ncode)}
 \arguments{
   \item{x}{ The input genetic files, genepop format}
-  \item{q}{ Hill numbers,  q can be o (richness), 1 (exponential Shannon entropy), 2 (heterozygosity), or "all".If q= "all", this will return a line plot including three diversities.}
+  \item{q}{The order of Hill numbers,  q =0,1,2, or "all".If q= "all", this will return plot including three diversities.}
   \item{ncode}{ The coding type of your data.}
 }
-\details{Function returns a diversity plot.}
+\details{Result returns a diversity plot.}
 \references{
 Marcon, E., & Herault, B. (2015). entropart: An R package to measure and partition diversity. Journal of Statistical Software, 67(8).
 

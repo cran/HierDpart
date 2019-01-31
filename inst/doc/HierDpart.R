@@ -7,7 +7,7 @@ knitr::opts_chunk$set(
 ## ---- install------------------------------------------------------------
 #Install from CRAN
 #install.packages("HierDpart")
-## or you can install from github
+## or you can get the latest version of HierDpart from github
 #library(devtools)
 
 #install_github("xinghuq/HierDpart")

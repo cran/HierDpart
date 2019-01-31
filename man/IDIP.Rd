@@ -1,6 +1,6 @@
 \name{IDIP}
 \alias{IDIP}
-\title{Function to decompose diversity (genetic or species diversity) and differentiation into different hierarchical levels}
+\title{Function for decomposing diversity (genetic or species diversity) and differentiation into different hierarchical levels}
 \description{This function comes from Information-based Diversity Partitioning (Chao et al, 2017). It allows you to decompose diversity under a specified multi-level hierarchical structure.
 }
 \usage{IDIP(abun, struc)}

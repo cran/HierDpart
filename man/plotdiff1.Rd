@@ -1,7 +1,7 @@
 \name{plotdiff1}
 \alias{plotdiff1}
 \title{Plot genetic differentiation (Delta D) across loci}
-\description{Plot genetic differentiation (Delta D, Oscar E, et al, 2018) across loci.}
+\description{Plot genetic differentiation (Delta D, Gaggiotti OE, et al, 2018) across loci.}
 \usage{plotdiff1(x, ncode)}
 \arguments{
   \item{x}{Genetic data, should be genepop format}

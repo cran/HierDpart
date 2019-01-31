@@ -12,9 +12,9 @@
 
 <meta name="author" content="Xinghu Qin –School of Biology, University of St Andrews" />
 
-<meta name="date" content="2018-10-17" />
+<meta name="date" content="2019-01-31" />
 
-<title>A Brief Guide to Use HierDpart Package to Do Landscape Genetic Analysis</title>
+<title>A Brief Tutorial on Landscape Genetic Analysis Using HierDpart</title>
 
 
 
@@ -68,15 +68,15 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 
 
-<h1 class="title toc-ignore">A Brief Guide to Use HierDpart Package to Do Landscape Genetic Analysis</h1>
+<h1 class="title toc-ignore">A Brief Tutorial on Landscape Genetic Analysis Using HierDpart</h1>
 <h4 class="author"><em>Xinghu Qin –School of Biology, University of St Andrews</em></h4>
-<h4 class="date"><em>2018-10-17</em></h4>
+<h4 class="date"><em>2019-01-31</em></h4>
 
 
 
 <div id="instruction" class="section level1">
 <h1>Instruction</h1>
-<p>This vignette demonstrates how to use the latest version of HierDPart to do landscape genetic analysis. This package is designed for population geneticists and community geneticists to solve the gap between community ecology and population genetics - how to partition diversity across metrics and spatial scales, from genetic diversity to species diversity using an integrated method. The method, known as the unifying framework, has been explained in recent paper (Gaggiotti, O. E. et al, 2018, Evol Appl, 11:1176-1193). This package was developed to implement the hierarchical decomposition analysis using not only the common genetic metrics, such as He, Fst, allelic richness, but also new genetic metrics from the unifying framework.</p>
+<p>This vignette demonstrates how to use the latest version of HierDpart to do landscape genetic analysis. This package is designed for population geneticists and community geneticists to solve the gap between community ecology and population genetics - how to partition diversity across metrics and spatial scales, from genetic diversity to species diversity using an integrated method. The method, known as the unifying framework, has been explained in recent paper (Gaggiotti, O. E. et al, 2018, Evol Appl, 11:1176-1193). This package was developed to implement the hierarchical decomposition analysis using not only the common genetic metrics, such as He, Fst, allelic richness, but also new genetic metrics from the unifying framework.</p>
 <p>Here, this vignette will briefly show how to do analyses using this package.</p>
 </div>
 <div id="practical-analyses" class="section level1">
@@ -86,7 +86,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h2>Install HierDpart</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#Install from CRAN</span>
 <span class="co">#install.packages(&quot;HierDpart&quot;)</span>
-## or you can install from github
+## or you can get the latest version of HierDpart from github
 <span class="co">#library(devtools)</span>
 
 <span class="co">#install_github(&quot;xinghuq/HierDpart&quot;)</span>
@@ -98,7 +98,7 @@ infile &lt;-<span class="st"> </span><span class="kw">file.path</span>(f, <span 
 </div>
 <div id="function-to-calculate-genetic-diversity-profiles-q012" class="section level2">
 <h2>Function to calculate genetic diversity profiles (q=0,1,2)</h2>
-<p>qD is the function calculating genetic diversity profiles (q=0,1,2), including richness (q=0), exponential Shannon entropy (q=1), and heterozygosity (q=2). If we want to calculate the allelic diversity profiles, we can do the following command line:</p>
+<p>qD is the function calculating genetic diversity profile (qD, q=0,1,2), the true diversities. If we want to calculate the allelic diversity profiles, we can do the following command line:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qD</span>(infile,<span class="dt">q=</span><span class="dv">0</span>,<span class="dt">ncode=</span><span class="dv">3</span>)
 <span class="co">#&gt;         pop1 pop2 pop3 pop4 pop5 pop6 pop7 pop8 pop9 pop10 pop11 pop12</span>
 <span class="co">#&gt; locus1     2    3    2    3    3    2    2    5    5     4     5     3</span>
@@ -122,7 +122,7 @@ infile &lt;-<span class="st"> </span><span class="kw">file.path</span>(f, <span 
 <span class="co">#&gt; locus8      5     3     6     4</span>
 <span class="co">#&gt; locus9      4     8     8     6</span>
 <span class="co">#&gt; locus10     6     6     7     8</span></code></pre></div>
-<p>You can choose which diversity to calculate by defining the value of q.</p>
+<p>You can choose which diversity you want to get by defining the value of q.</p>
 </div>
 <div id="plot-diversity-profiles" class="section level2">
 <h2>Plot diversity profiles</h2>
@@ -130,13 +130,13 @@ infile &lt;-<span class="st"> </span><span class="kw">file.path</span>(f, <span 
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">qDplot</span>(infile,<span class="dt">q=</span><span class="st">&quot;all&quot;</span>,<span class="dt">ncode=</span><span class="dv">3</span>)</code></pre></div>
 <p><img src="data:image/png;base64,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" /><!-- --></p>
 </div>
-<div id="hierarchical-diversity-and-differentication-decomposition" class="section level2">
-<h2>Hierarchical diversity and differentication decomposition</h2>
-<p>For geneticists studying landscape genetics, they may want to partition the metapopulation into different subpopulation, thus having several hierarchical groups. Now we are showing how to decompose genetic diversity into different hierarchical levels.</p>
+<div id="hierarchical-diversity-and-differentiation-decomposition" class="section level2">
+<h2>Hierarchical diversity and differentiation decomposition</h2>
+<p>For geneticists studying landscape genetics, they may want to partition the metapopulation into different subpopulation, thus having several hierarchical groups. Now I am showing how to decompose genetic diversity into different hierarchical levels.</p>
 </div>
 <div id="hierarchical-allelic-richness-q0" class="section level2">
 <h2>Hierarchical allelic richness (q=0)</h2>
-<p>Here it is easy to define or delimit your structure, type ?HierAr will show you how to do that. Here, “nreg” is the number of aggregate ( or population) in your metapopulation, and “r” is the number of subaggregate (or subpopulation) in each aggregate.</p>
+<p>Here it is easy to define or delimit your structure (hierarchy), type ?HierAr will show you how to do that. Here, “nreg” is the number of aggregate ( or population) in your metapopulation, and “r” is the number of subaggregate (or subpopulation) in each aggregate.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">HAr=<span class="kw">HierAr</span>(infile, <span class="dt">nreg=</span><span class="dv">4</span>, <span class="dt">r=</span><span class="kw">c</span>(<span class="dv">7</span>,<span class="dv">4</span>,<span class="dv">2</span>,<span class="dv">3</span>), <span class="dt">ncode=</span><span class="dv">3</span>)
 <span class="kw">print</span>(HAr)
 <span class="co">#&gt; $Ar_pop</span>
@@ -182,8 +182,8 @@ infile &lt;-<span class="st"> </span><span class="kw">file.path</span>(f, <span 
 <span class="co">#&gt;       Art Arr    Arp</span>
 <span class="co">#&gt; [1,] 10.9 7.8 6.3375</span></code></pre></div>
 </div>
-<div id="hierarchical-allelic-diversity-q1" class="section level2">
-<h2>Hierarchical allelic diversity (q=1)</h2>
+<div id="hierarchical-allelic-diversity-1dq1" class="section level2">
+<h2>Hierarchical allelic diversity (^1D,q=1)</h2>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">HiD=<span class="kw">HierD</span>(infile, <span class="dt">nreg=</span><span class="dv">4</span>, <span class="dt">r=</span><span class="kw">c</span>(<span class="dv">7</span>,<span class="dv">4</span>,<span class="dv">2</span>,<span class="dv">3</span>), <span class="dt">ncode=</span><span class="dv">3</span>)
 <span class="kw">print</span>(HiD)
 <span class="co">#&gt;           D_gamma D_alpha.2 D_alpha.1 D_beta.2 D_beta.1 Differentiation.2</span>
@@ -231,9 +231,9 @@ infile &lt;-<span class="st"> </span><span class="kw">file.path</span>(f, <span 
 <span class="co">#&gt;         Ht      Hr     Hp</span>
 <span class="co">#&gt; [1,] 0.812 0.73165 0.7302</span></code></pre></div>
 </div>
-<div id="hierarchical-fst" class="section level2">
-<h2>Hierarchical Fst</h2>
-<p>Besides the hierarchical diversity, this package also calculates hierarchical differentiation. It has new differentiation (Delta D) here, which corresponds to diversity D (q=1). Now we are showing how to calculate the traditional hierarchical Fst and new hierarchical Delta D.</p>
+<div id="hierarchical-fst-allelic-fixation" class="section level2">
+<h2>Hierarchical Fst (allelic fixation)</h2>
+<p>Besides the hierarchical diversity, this package also calculates hierarchical genetic differentiation measured by Fst and Delta D. The Delta D here, which corresponds to q=1, measures allelic differentiation. Now we are showing how to calculate the traditional hierarchical Fst and new hierarchical Delta D.</p>
 <p>For Fst:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Hier_Fst=<span class="kw">HierFst</span>(infile, <span class="dt">nreg=</span><span class="dv">4</span>, <span class="dt">r=</span><span class="kw">c</span>(<span class="dv">7</span>,<span class="dv">4</span>,<span class="dv">2</span>,<span class="dv">3</span>), <span class="dt">ncode=</span><span class="dv">3</span>)
 <span class="kw">print</span>(Hier_Fst)
@@ -241,7 +241,11 @@ infile &lt;-<span class="st"> </span><span class="kw">file.path</span>(f, <span 
 <span class="co">#&gt; Total  0.1077832 0.13154297  0.128481750</span>
 <span class="co">#&gt; region 0.0000000 0.02663001  0.023198983</span>
 <span class="co">#&gt; pop    0.0000000 0.00000000 -0.003524894</span></code></pre></div>
-<p>This gives you the Fst within in higher levels among lower levels. See ?HierFst for details. ## Hierarchical Fst For DeltaD:</p>
+<p>This gives you the Fst among subaggregate within in aggregate. See ?HierFst for more details.</p>
+</div>
+<div id="hierarchical-delta-d" class="section level2">
+<h2>Hierarchical Delta D</h2>
+<p>For DeltaD:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Hier_D=<span class="kw">HierD</span>(infile, <span class="dt">nreg=</span><span class="dv">4</span>, <span class="dt">r=</span><span class="kw">c</span>(<span class="dv">7</span>,<span class="dv">4</span>,<span class="dv">2</span>,<span class="dv">3</span>), <span class="dt">ncode=</span><span class="dv">3</span>)
 <span class="kw">print</span>(Hier_D)
 <span class="co">#&gt;           D_gamma D_alpha.2 D_alpha.1 D_beta.2 D_beta.1 Differentiation.2</span>
@@ -266,8 +270,8 @@ infile &lt;-<span class="st"> </span><span class="kw">file.path</span>(f, <span 
 <span class="co">#&gt; Locus 8         0.11112839</span>
 <span class="co">#&gt; Locus 9         0.10795825</span>
 <span class="co">#&gt; Locus 10        0.08721245</span></code></pre></div>
-<p>Here we get alpha, beta, gamma diversity, which correspond to low to high level diversities. Beta.1 is the number of equivalent subaggregate (population or subpopulation depends on the hierarchy), and beta.2 is the number of equivalent aggregate (eg. regions). Differentiation.2 represents genetic differentiation between aggragates, Differentiation.1 represents genetic differentiation between subaggregates.</p>
-<p>Untill now you may know how to implement the hierarchical diversity analyses. Furthermore, this package also includes several functions that can plot correlation between geographic distances and genetic differentiations, (see COR_Fstd, and COR_DeltaDd), as well as Delta D matrix and Delta D across loci.</p>
+<p>Here we get alpha, beta, gamma diversity. D alpha1, D alpha2 and Dgamma correspond to number of equivalent alleles at population level, number of equivalent alleles at regional level, and total number of equivalent alleles at ecosystem. Beta.1 is the number of equivalent subaggregate (population or subpopulation depends on the hierarchy), and beta.2 is the number of equivalent aggregate (eg. regions). Differentiation.2 represents genetic differentiation between aggragates, Differentiation.1 represents genetic differentiation between subaggregates.</p>
+<p>Untill now you may know how to implement the hierarchical diversity analysis. Furthermore, this package also includes several functions that can plot correlation between geographic distances and genetic differentiations, (see COR_Fstd, and COR_DeltaDd), as well as Delta D matrix and Delta D across loci.</p>
 </div>
 </div>
 <div id="references" class="section level1">

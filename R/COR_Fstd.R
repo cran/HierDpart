@@ -1,7 +1,7 @@
 
 ###### updated on 21-09-2018, the function for correlation of pirwise Fst (Weir and Cockerham, 1984) and distance
 
-COR_Fstd = function (x, d, ncode) {
+COR_Fstd = function (x, d, ncode,nrepet) {
   read.genepop1 <- function(file, ncode, quiet = TRUE) {
     adegenet::.readExt
     adegenet::.genlab
@@ -12,6 +12,7 @@ COR_Fstd = function (x, d, ncode) {
     adegenet::Hs
     adegenet::seppop
     adegenet::popNames
+    ade4::mantel.randtest
     if (toupper(.readExt(file)) != "GEN")
       stop("File extension .gen expected")
     if (!quiet)
@@ -75,43 +76,41 @@ COR_Fstd = function (x, d, ncode) {
   hierfstat::pairwise.WCfst
   PFst = pairwise.WCfst(g1)
   PFst=as.dist(PFst, diag = FALSE, upper = FALSE)
-    npops = length(levels(g1$pop))
+  npops = length(levels(g1$pop))
     ## if M is matrix, then
-    if (d == TRUE) {
-        if (is.matrix(d) == TRUE) {
-          Dgeo = as.dist(d, diag = FALSE, upper = FALSE)
-            COR_Fstd = cor(PFst, Dgeo, method = "pearson")
-            return(COR_Fstd)
-        } else {
-            print("d must be a matrix")
+      if (class(PFst) != "matrix" & class(PFst) != "dist")
+         stop("PFst has to be a matrix")
+
+       if (class(d) == "matrix" | class(d) == "dist") {
+         if (length(PFst) != length(d))
+           stop("Numbers of rows in PFst and Dgeo are not equal")
+         if (sum(is.na(PFst)) != 0 | sum(is.na(d)) != 0)
+           stop("Missing data in the dataset")
+            Dgeo = as.dist(d, diag = FALSE, upper = FALSE)
+            #COR_Fstd = cor.test(PFst, Dgeo, type= "pearson")
+            COR_Fstd=mantel.randtest(PFst, Dgeo, nrepet = 999)
         }
-    } else {
-        d == FALSE
+      if (is.null(d)==TRUE) {
         M = matrix(data = 0, nrow = npops, ncol = npops)  ## nrow=npops, ncol=npops, which is 16 here
-        colnames(M) = levels(g$pop)
-        rownames(M) = levels(g$pop)
+        colnames(M) = levels(g1$pop)
+        rownames(M) = levels(g1$pop)
         for (i in 1:npops) {
             for (j in 1:npops) {
                 M[i, j] = abs(i - j)
             }
         }
         Dgeo = as.dist(M, diag = FALSE, upper = FALSE)
+
         # if we want test IBD by mantel test ibd <- mantel.randtest(Dgen2,Dgeo1) plot(ibd) plot(Dgeo1, Dgen2)
         # abline(lm(Dgen2~Dgeo1), col='red',lty=2) if we want use the euclidean distance rather the real matrix distance
         # Dgeo1=dist(M, method = 'euclidean', diag = FALSE, upper = FALSE, p = 2)### this is euclidean distance
         # COR_Fsteud= cor(Dgen2,Dgeo1,method = 'pearson') #cor(c(matrix1), c(matrix2)).
 
-        if (class(PFst) != "matrix" & class(PFst) != "dist")
-           stop("PFst has to be a matrix")
-        if (class(Dgeo) != "matrix" & class(Dgeo) != "dist")
-            stop("d (Dgeo) has to be a matrix")
+        
+      COR_Fstd=mantel.randtest(PFst, Dgeo, nrepet)
+      }
+   else {if (class(d) != "matrix" & class(d) != "dist")
+     stop("d (Dgeo) has to be a matrix")}
 
-        if (sum(is.na(PFst)) != 0 | sum(is.na(Dgeo)) != 0)
-            stop("Missing data in the dataset")
-        if (length(PFst) != length(Dgeo))
-            stop("Numbers of rows in PFst and Dgeo are not equal")
-
-        COR_Fstd = cor(PFst, Dgeo, method = "pearson")
-        return(list(pwFst = PFst, Dgeo = Dgeo, COR_Fstd = COR_Fstd))
-    }
-}
+  return(list(pwFst = PFst, Dgeo = Dgeo, COR_Fstd = COR_Fstd))
+ }

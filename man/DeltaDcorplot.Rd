@@ -4,7 +4,7 @@
 \description{This function plots the pairwise genetic differentiation (Delta D).}
 \usage{DeltaDcorplot(x, ncode)}
 \arguments{
-  \item{x}{The genetic data file, specifically genepop format.}
+  \item{x}{The genetic data file, genepop format.}
   \item{ncode}{The coding type of the genetic data.}
 }
 \details{ This function returns the pairwise genetic differentiation (Delta D) plot.}

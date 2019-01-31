@@ -1,6 +1,6 @@
 \name{HierAr}
 \alias{HierAr}
-\title{Function to calculate hierarchical allelic richness}
+\title{Calculating hierarchical allelic richness}
 \description{This function calculates hierarchical allelic richness for populations structured in any hierarchy.}
 \usage{HierAr(x, nreg, r, ncode)}
 \arguments{
@@ -13,7 +13,7 @@
 \value{
 \item{Ar_pop}{Allelic richness for each population per locus}
 \item{Ar_reg}{Allelic richness for each aggregate (eg. region)}
-\item{Ar_overall}{Hierarchical allelic richness in different levels}
+\item{Ar_overall}{Hierarchical allelic richness at different hierarchical levels}
 }
 \references{
 El Mousadik A. and Petit R.J. (1996) High level of genetic differentiation for allelic richness among populations of the argan tree argania spinosa skeels endemic to Morocco. Theoretical and Applied Genetics, 92:832-839

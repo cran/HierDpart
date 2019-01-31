@@ -2,11 +2,12 @@
 ###### the function for correlation of pirwise DeltaD and distance
 
 
-COR_DeltaDd = function(f, d, ncode) {
+COR_DeltaDd = function(f, d, ncode,nrepet) {
     diveRsity::readGenepop
     gp = ncode
     fr = readGenepop(f, gp, bootstrap = FALSE)
     af = fr$allele_freq
+    ade4::mantel.randtest
     DeltaD = function(abun, struc) {
       ## Chao et al, 2017
         n = sum(abun)
@@ -71,18 +72,22 @@ COR_DeltaDd = function(f, d, ncode) {
         }
     }
     pairwiseDav = Reduce("+", Dmat)/length(Dmat)
+    colnames(pairwiseDav) = fr$pop_names
+    rownames(pairwiseDav) = fr$pop_names
     # library(popbio)
     DeltaDmat = as.dist(pairwiseDav, diag = FALSE, upper = FALSE)
-    if (d == TRUE) {
-        if (is.matrix(d) == TRUE) {
+
+    if (class(d) == "matrix" | class(d) == "dist") {
+      if (length(DeltaDmat) != length(d))
+        stop("Numbers of rows in DeltaD matrix and Dgeo are not equal")
+      if (sum(is.na(DeltaDmat)) != 0 | sum(is.na(d)) != 0)
+        stop("Missing data in the dataset")
             Dgeo = as.dist(d, diag = FALSE, upper = FALSE)
-            COR_DeltaDd = cor(DeltaDmat, d, method = "pearson")
-            return(COR_DeltaDd)
-        } else {
-            print("d must be a matrix")
+            #COR_DeltaDd = cor(DeltaDmat, Dgeo, method = "pearson")
+            COR_DeltaDd=mantel.randtest(DeltaDmat, Dgeo, nrepet = 999)
         }
-    } else {
-        d == FALSE
+
+    if (is.null(d)==TRUE) {
         M = matrix(data = 0, nrow = npops, ncol = npops)
         colnames(M) = fr$pop_names
         rownames(M) = fr$pop_names
@@ -91,10 +96,13 @@ COR_DeltaDd = function(f, d, ncode) {
                 M[i, j] = abs(i - j)
             }
         }
-
         Dgeo = as.dist(M, diag = FALSE, upper = FALSE)
-        COR_DeltaDd = cor(DeltaDmat, Dgeo, method = "pearson")
-        return(list(PairwiseDeltaD = DeltaDmat, Dgeo = Dgeo, CorDeltaDd = COR_DeltaDd))
+        #ade4::mantel.randtest
+        #COR_Fstd = cor.test(PFst, Dgeo, type = "pearson")
+        COR_DeltaDd = mantel.randtest(DeltaDmat, Dgeo, nrepet)
     }
+    else {if (class(d) != "matrix" & class(d) != "dist")
+      stop("d (Dgeo) has to be a matrix")}
+    return(list(PairwiseDeltaD = DeltaDmat, Dgeo = Dgeo, CorDeltaDd = COR_DeltaDd))
 }
 
