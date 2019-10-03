@@ -71,7 +71,7 @@ HierFst = function(x, nreg, r, ncode) {
     genfiles = read.genepop1(x, ncode, quiet = TRUE)  # covert the genepop #files to genind files, we can also use read.genpop from adegent package
     hierfstat::genind2hierfstat
     hfiles <- genind2hierfstat(genfiles)  # convert into hieformat
-    requireNamespace("dplyr")
+   # requireNamespace("dplyr")
     npops = length(levels(genfiles$pop))
    # nloci = length(levels(genfiles$loc.fac))
     sampsize = summary(genfiles$pop)  ## sample size

@@ -7,12 +7,14 @@
   \item{x}{Genetic data, the format should be genepop file with proper extention.}
   \item{nreg}{Number of aggregate in the hierarchy.}
   \item{r}{The number of subaggregate in the hierarchy.}
-  \item{ncode}{ Coding type of genetic data, whether 3, or 2.}
+  \item{ncode}{Coding type of genetic data, whether 3, or 2.}
 }
 \details{In line with other genetic metrics, this function obtains hierarchical expected heterozygosity (He) for metapopulations. The result gives us hierarchical allelic diversity at different levels that you set in the input argument.}
 \value{
   \item{HierHe_perloc}{List of hierarchical allelic diversity (heterozygosity) at different levels per locus.}
-  \item{HieHr_overall}{Overall (mean) hierarchical allelic diversity (heterozygosity) at different levels.}
+  \item{HierHr}{Hierarchical allelic diversity (heterozygosity) at aggregate/regional levels.}
+    \item{Hrperloc}{Hierarchical allelic diversity (heterozygosity) per locus at aggregate/regional levels.}
+   \item{HieHr_overall}{Overall (mean) hierarchical allelic diversity (heterozygosity) at different levels.}
 }
 \references{
 Goudet, J. (2005). Hierfstat, a package for R to compute and test hierarchical F-statistics. Molecular Ecology Notes, 5(1), 184-186.

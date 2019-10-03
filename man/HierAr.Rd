@@ -12,7 +12,9 @@
 \details{This function calculates the hierarchical allelic richness for metapopulations structured in any hierarchy. In this function, you can input your genepop file (x) and structure (nreg, r) of your data in the arguments, and then returns a matrix of your hierarchical Ar. This is very efficient than other functions.}
 \value{
 \item{Ar_pop}{Allelic richness for each population per locus}
+\item{Hierareco}{Total allelic richness}
 \item{Ar_reg}{Allelic richness for each aggregate (eg. region)}
+\item{Hierar_loc}{Allelic richness per locus for each aggregate (eg. region)}
 \item{Ar_overall}{Hierarchical allelic richness at different hierarchical levels}
 }
 \references{
