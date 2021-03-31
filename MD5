@@ -1,6 +1,6 @@
-674ae6bbf925e0ac7cec7e47ae43a6b4 *DESCRIPTION
+5552211b6b9900abc8fa71dcca5b1c24 *DESCRIPTION
 0aad02cfd305cd099ee202f7d8210ae8 *NAMESPACE
-bd08acaecefd87d4fc81e24fd681c263 *R/COR_DeltaDd.R
+70cc1ddd4dca07efc2ad5e362ca879c5 *R/COR_DeltaDd.R
 dcdc754cd73862389abb7ceea1c184d4 *R/COR_Fstd.R
 8df48d7e3587e97984c3cdfedc2f9697 *R/CorDdPlot.R
 e2bfa1e72f059868e0241b975ecdde12 *R/DeltaDcorplot.R
@@ -25,16 +25,16 @@ cc0f4fb3855508d83e46c40c482099da *R/pairwise_permutation_aggregate.R
 15963fc5ad02f0519f21ee9158f36457 *R/pwDeltaD.R
 80af113f1e23e3c01a59ebb870961e49 *R/qD.R
 1cd10984ea61701642bb3b789abd4f30 *R/qDplot.R
-0e21faf2a58d8102e4bac4d9572943fa *build/vignette.rds
-251d35d001a3a94658b390832e9eafd4 *inst/doc/HierDpart.R
-a4b5d6da1e8f1e58d5489883e755c02c *inst/doc/HierDpart.Rmd
-a3b2ed26a7823dee2b4ce91f59816beb *inst/doc/HierDpart.html
+a1f28e47bfa966fb8c81a4f6fabd9b1e *build/vignette.rds
+23be93c7f372fe1fc9904ab507e957c6 *inst/doc/HierDpart.R
+ed1b605204c42b3dcb67fcff7bc0378f *inst/doc/HierDpart.Rmd
+e53fe18e393e449e6e13da0a79808436 *inst/doc/HierDpart.html
 82303c15b7a76ad6ccfbb397cfdcac28 *inst/extdata/Island
 82303c15b7a76ad6ccfbb397cfdcac28 *inst/extdata/Island.gen
 82303c15b7a76ad6ccfbb397cfdcac28 *inst/extdata/Island.txt
 655c1463f34d027422db2815c6a30d4a *man/COR_DeltaDd.Rd
 405b3e4f0ffd48e84ed395e288f6ebce *man/COR_Fstd.Rd
-9335b07bbecfae451a7fc0e4544ddddf *man/CorDdPlot.Rd
+c8963a8a77c471daa0b88e6c31ccb373 *man/CorDdPlot.Rd
 611fdbaf40e50786c09683cd566859b9 *man/DeltaDcorplot.Rd
 43ff1bde1801270fb26132a7d7e71db6 *man/HierAr.Rd
 e087edca2f8521ee14c16a00ab941abb *man/HierD.Rd
@@ -57,5 +57,5 @@ fc51b1bdb3eee3b470789c0c75c4a3b4 *man/pwDeltaD.Rd
 0fa3369c6f761bb45e424440c80fb787 *man/qD.Rd
 8e9701dcb11428ec2f8ad65c6daa1bbf *man/qDplot.Rd
 a59d4acd1f118275568322f0fe929e8f *tests/testthat/testthat.R
-a4b5d6da1e8f1e58d5489883e755c02c *vignettes/HierDpart.Rmd
+ed1b605204c42b3dcb67fcff7bc0378f *vignettes/HierDpart.Rmd
 82303c15b7a76ad6ccfbb397cfdcac28 *vignettes/Island.gen

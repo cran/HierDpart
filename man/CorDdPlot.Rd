@@ -4,7 +4,8 @@
 \description{This function plots the linear regression of genetic differentiation (Delta D) against geographic distance.}
 \usage{CorDdPlot(x, d, ncode)}
 \arguments{
-  \item{x}{The genetic file, here is genepop format file.}
+  \item{x}{The genetic file, here is ge19900516qxh
+  nepop format file.}
   \item{d}{Geographic distance.If D is TRUE, you should input the matrix of geographic distance; if no realistic distance,d should be set as NULL, then the default distance will be generated according to the order of the population sequence.}
   \item{ncode}{ The type of your coding allele}
 }
@@ -17,9 +18,9 @@ Gaggiotti, O. E., Chao, A., Peres-Neto, P., Chiu, C. H., Edwards, C., Fortin, M.
 \author{qinxinghu@gmail.com}
 \examples{
 # example genepop file
-f <- system.file('extdata',package='HierDpart')
-infile <- file.path(f, "Island.gen")
-CorDdPlot(infile,d=NULL,ncode=3)
+#f <- system.file('extdata',package='HierDpart')
+#infile <- file.path(f, "Island.gen")
+#CorDdPlot(infile,d=NULL,ncode=3)
 }
 \keyword{Correlation plot}
 \keyword{Plot genetic differentiation}

@@ -99,7 +99,7 @@ COR_DeltaDd = function(f, d, ncode,nrepet) {
         Dgeo = as.dist(M, diag = FALSE, upper = FALSE)
         #ade4::mantel.randtest
         #COR_Fstd = cor.test(PFst, Dgeo, type = "pearson")
-        COR_DeltaDd = mantel.randtest(DeltaDmat, Dgeo, nrepet)
+        COR_DeltaDd = mantel.randtest(DeltaDmat, Dgeo, nrepet=999)
     }
     else {if (class(d) != "matrix" & class(d) != "dist")
       stop("d (Dgeo) has to be a matrix")}

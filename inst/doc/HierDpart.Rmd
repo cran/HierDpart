@@ -55,7 +55,7 @@ You can choose which diversity you want to get by defining the value of q.
 ##Plot diversity profiles
 If we want to plot the diversity profiles, we can do:
 
-```{r}
+```{r fig1, fig.height = 5, fig.width = 8.5, fig.align = "center"} 
 qDplot(infile,q="all",ncode=3)
 ```
 
